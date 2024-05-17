@@ -1,0 +1,55 @@
+
+  
+    $excelFilePath = "C:\Reseña de Marca de Café.xlsx"
+    Write-Host  $excelFilePath
+
+
+    $V_Servidor = "Localhost"
+    $BaseDeDatos = "Prueba_correo"
+    $tabladestino = "Stage"
+
+  
+    $cadenaconexion = "Server=$V_Servidor;Database=$BaseDeDatos;Integrated Security=True;"
+
+ 
+    $Conexionsql = New-Object System.Data.SqlClient.SqlConnection
+    $Conexionsql.ConnectionString = $cadenaconexion
+    $Conexionsql.Open()
+    Write-Host  $BaseDeDatos
+
+  
+    $excelObjeto = New-Object -ComObject Excel.Application
+    $libro = $excelObjeto.Workbooks.Open($excelFilePath)
+    $hoja = $libro.Worksheets.Item(2)
+    Write-Host $hoja
+
+   
+    $fila = 2 
+    while ($hoja.Cells.Item($fila, 1).Value2 -ne $null) {
+    
+        $columna1 = $hoja.Cells.Item($fila, 1).Value2
+        $columna2 = $hoja.Cells.Item($fila, 2).Value2
+
+
+        $comandosql = $Conexionsql.CreateCommand()
+        $comandosql.CommandText = "INSERT INTO $tabladestino ([Nombre de la Marca], [Tostadores]) VALUES (@columna1, @columna2)"
+        $comandosql.Parameters.Add((New-Object Data.SqlClient.SqlParameter("@columna1", [Data.SqlDbType]::NVarChar, 255))).Value = $columna1
+        $comandosql.Parameters.Add((New-Object Data.SqlClient.SqlParameter("@columna2", [Data.SqlDbType]::NVarChar, 255))).Value = $columna2
+
+        $comandosql.ExecuteNonQuery()
+        $fila++
+      
+    }
+
+    Write-Host  $tabladestino
+
+
+    $libro.Close()
+    $excelObjeto.Quit()
+    $Conexionsql.Close()
+
+    Write-Host "Proceso completado"
+
+
+
+
