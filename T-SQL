@@ -1,0 +1,30 @@
+USE [Prueba_correo]
+GO
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Stage](
+	[Nombre de la Marca] [nvarchar](255) NULL,
+	[Tostadores ] [nvarchar](255) NULL,
+	[Tipo de Tueste ] [nvarchar](255) NULL,
+	[Ubicación del Tostador ] [nvarchar](255) NULL,
+	[Latitud del Tostador] [nvarchar](255) NULL,
+	[Longitud del Tostador ] [nvarchar](255) NULL,
+	[Origen ] [nvarchar](255) NULL,
+	[Latitud de Origen] [nvarchar](255) NULL,
+	[Longitud de Origen] [nvarchar](255) NULL,
+	[Precio por 100g (USD)] [nvarchar](255) NULL,
+	[Calificación ] [nvarchar](255) NULL,
+	[Fecha de Reseña] [nvarchar](255) NULL,
+	[Breve Descripción del Producto] [nvarchar](255) NULL,
+	[Aroma ] [nvarchar](255) NULL,
+	[Sensación en Boca] [nvarchar](255) NULL
+) ON [PRIMARY]
+GO
+
+
